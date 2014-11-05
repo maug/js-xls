@@ -9,7 +9,7 @@ if(typeof module !== "undefined" && typeof require !== 'undefined') {
 	if(typeof cptable === 'undefined') cptable = require('./dist/cpexcel');
 	current_cptable = cptable[current_codepage];
 }
-function reset_cp() { set_cp(1252); }
+function reset_cp() { set_cp(1200); } // Reset codepage to UTF-16LE instead of WINDOWS-1252
 function set_cp(cp) { current_codepage = cp; if(typeof cptable !== 'undefined') current_cptable = cptable[cp]; }
 
 var _getchar = function _gc1(x) { return String.fromCharCode(x); };
