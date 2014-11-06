@@ -9,7 +9,7 @@ if(typeof module !== "undefined" && typeof require !== 'undefined') {
 	if(typeof cptable === 'undefined') cptable = require('./dist/cpexcel');
 	current_cptable = cptable[current_codepage];
 }
-function reset_cp() { set_cp(1252); }
+function reset_cp() { set_cp(1200); } // Reset codepage to UTF-16LE instead of WINDOWS-1252
 function set_cp(cp) { current_codepage = cp; if(typeof cptable !== 'undefined') current_cptable = cptable[cp]; }
 
 var _getchar = function _gc1(x) { return String.fromCharCode(x); };
@@ -6928,6 +6928,7 @@ function sheet_to_csv(sheet, opts) {
 	var out = "", txt = "", qreg = /"/g;
 	var o = opts == null ? {} : opts;
 	if(sheet == null || sheet["!ref"] == null) return "";
+  sheet["!ref"] = sheet["!ref"].replace(/^[^:]+/, 'A1'); // Always export to CSV from range starting at A1, regardless of empty columns/rows
 	var r = safe_decode_range(sheet["!ref"]);
 	var FS = o.FS !== undefined ? o.FS : ",", fs = FS.charCodeAt(0);
 	var RS = o.RS !== undefined ? o.RS : "\n", rs = RS.charCodeAt(0);

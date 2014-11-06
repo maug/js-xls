@@ -128,6 +128,7 @@ function sheet_to_csv(sheet, opts) {
 	var out = "", txt = "", qreg = /"/g;
 	var o = opts == null ? {} : opts;
 	if(sheet == null || sheet["!ref"] == null) return "";
+  sheet["!ref"] = sheet["!ref"].replace(/^[^:]+/, 'A1'); // Always export to CSV from range starting at A1, regardless of empty columns/rows
 	var r = safe_decode_range(sheet["!ref"]);
 	var FS = o.FS !== undefined ? o.FS : ",", fs = FS.charCodeAt(0);
 	var RS = o.RS !== undefined ? o.RS : "\n", rs = RS.charCodeAt(0);
